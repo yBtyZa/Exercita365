@@ -1,0 +1,13 @@
+{
+  "name": "exercita365---projeto-modulo-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node ./src/index.js",
+    "start:prod": "node ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

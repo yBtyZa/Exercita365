@@ -26,7 +26,6 @@ class UsuariosController {
                 data_nascimento: novoUsuario.data_nascimento,
             })
         } catch (error) {
-            console.log(error)
             if (error.parent && error.parent.code === '22P02' && error.parent.message.includes('enum_usuarios_sexo')) {
                 return res.status(400).json({ message: 'Sexo invalido, use "Masculino", "Feminino" ou "Outro"!' })
             }
@@ -70,7 +69,6 @@ class UsuariosController {
                 email: usuario.email,
             })
         } catch (error) {
-            console.log(error)
             return res.status(500).json({ message: 'Não foi possível realizar o login' })
         }
     }

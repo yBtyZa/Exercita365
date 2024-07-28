@@ -1,5 +1,7 @@
 const connection = require('../database/connection')
 const { DataTypes } = require('sequelize')
+const Atividades = require('./Atividades')
+const Locais_atividades = require('./Locais_atividades')
 
 const Locais = connection.define('locais', {
   nome: {
@@ -33,6 +35,12 @@ const Locais = connection.define('locais', {
     type: DataTypes.STRING(255),
     allowNull: false
   }
+})
+
+Locais.belongsToMany(Atividades, {
+  through: Locais_atividades,
+  foreignKey: 'local_id',
+  otherKey: 'atividade_id'
 })
 
 module.exports = Locais

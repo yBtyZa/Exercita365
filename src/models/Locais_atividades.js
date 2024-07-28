@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 
 const Locais_atividades = connection.define('locais_atividades', {
     local_id:{
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: { 
           model: 'locais',
@@ -13,7 +13,7 @@ const Locais_atividades = connection.define('locais_atividades', {
          }
        },
        atividade_id:{
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: { 
           model: 'atividades',

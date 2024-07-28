@@ -32,7 +32,9 @@ module.exports = {
         allowNull: false,
         references: { 
           model: 'usuarios',
-          key: 'id'
+          key: 'id',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
          },
        },
        maps_link:{

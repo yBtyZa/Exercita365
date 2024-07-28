@@ -15,20 +15,20 @@ module.exports = {
         allowNull: false,
         references: { 
           model: 'locais',
-          key: 'id',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
-         }
+          key: 'id'
+         },
+         onUpdate: 'CASCADE',
+         onDelete: 'CASCADE'
        },
        atividade_id:{
         type: Sequelize.INTEGER,
         allowNull: false,
         references: { 
           model: 'atividades',
-          key: 'id',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
+          key: 'id'
          },
+         onUpdate: 'CASCADE',
+         onDelete: 'CASCADE'
        },
        createdAt: {
         type: Sequelize.DATE,

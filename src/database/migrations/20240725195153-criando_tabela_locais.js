@@ -32,10 +32,10 @@ module.exports = {
         allowNull: false,
         references: { 
           model: 'usuarios',
-          key: 'id',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
+          key: 'id'
          },
+         onUpdate: 'CASCADE',
+         onDelete: 'CASCADE'
        },
        maps_link:{
         type: Sequelize.STRING(255),

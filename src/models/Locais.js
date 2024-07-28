@@ -35,12 +35,18 @@ const Locais = connection.define('locais', {
     type: DataTypes.STRING(255),
     allowNull: false
   }
-})
+},
+{
+  paranoid: true
+}
+)
 
 Locais.belongsToMany(Atividades, {
   through: Locais_atividades,
   foreignKey: 'local_id',
-  otherKey: 'atividade_id'
+  otherKey: 'atividade_id',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
 })
 
 module.exports = Locais

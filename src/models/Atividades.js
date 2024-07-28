@@ -2,7 +2,7 @@ const connection = require('../database/connection')
 const { DataTypes } = require('sequelize')
 
 const Atividades = connection.define('atividades', {
-    nome:{
+    categoria:{
         type: DataTypes.STRING(50),
         allowNull: false
        },

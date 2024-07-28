@@ -14,7 +14,7 @@ const Locais = connection.define('locais', {
     allowNull: false
   },
   localidade: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   coordenadas: {

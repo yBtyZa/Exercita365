@@ -1,14 +1,16 @@
 const Locais = require('../models/Locais')
 const Atividades = require('../models/Atividades')
 
+const buscarCep = require('../hooks/buscarCep')
+const linkGoogleMaps = require('../hooks/linkGoogleMaps')
+
 class LocaisController {
     async criar(req, res) {
         try {
             const dados = req.body
-            if (!dados.nome || !dados.descricao || !dados.localidade || !dados.coordenadas || !dados.maps_link || !dados.atividades_id) {
+            if (!dados.nome || !dados.descricao || !dados.cep || !dados.numero || !dados.atividades_id) {
                 return res.status(400).json({ message: 'Todos os campos devem ser preenchidos!' })
             }
-            dados.usuario_id = req.usuario.id
             if (dados.atividades_id.length > 0) {
                 const atividades_id = await Atividades.findAll({
                     where: {
@@ -19,23 +21,26 @@ class LocaisController {
                 if(atividades_id.length !== dados.atividades_id.length) {
                     return res.status(400).json({ message: 'Uma ou mais atividades não existem!' })
                 }
-                const novoLocal = await Locais.create(dados)
+                const localidade = await buscarCep(dados.cep)
+                const maps_link = linkGoogleMaps(localidade.lat, localidade.lng)
+                const dadosLocal = {
+                    nome: dados.nome,
+                    descricao: dados.descricao,
+                    localidade: `${localidade.address} ${dados.numero}, ${localidade.district} - ${localidade.city}, ${localidade.state}`,
+                    coordenadas: `${localidade.lat}, ${localidade.lng}`,
+                    usuario_id: req.usuario.id,
+                    maps_link: maps_link
+                }
+                const novoLocal = await Locais.create(dadosLocal)
                 await novoLocal.addAtividades(atividades_id)
-                return res.status(201).json({
-                    id: novoLocal.id,
-                    nome: novoLocal.nome,
-                    descricao: novoLocal.descricao,
-                    localidade: novoLocal.localidade,
-                    coordenadas: novoLocal.coordenadas,
-                    maps_link: novoLocal.maps_link,
-                    usuario_id: novoLocal.usuario_id,
-                    atividades_id: dados.atividades_id
-                });
+                return res.status(201).json(dadosLocal);
             }
         } catch (error) {
-            console.log(error.name)
             if (error.name === 'SequelizeUniqueConstraintError') {
                 return res.status(400).json({ message: 'Ja existe um local com esse nome!' })
+            }
+            if(error.name === 'Error') {
+                return res.status(400).json({ message: 'CEP inválido ou não encontrado!' })
             }
             return res.status(500).json({ message: 'Não foi possível criar o local' })
         }

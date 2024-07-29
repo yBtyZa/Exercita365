@@ -1,6 +1,9 @@
-const { compareSync } = require('bcryptjs')
 const Usuarios = require('../models/Usuarios')
+const Locais = require('../models/Locais')
+const { compareSync } = require('bcryptjs')
 const { sign } = require('jsonwebtoken')
+
+const validarEmail = require('../hooks/validarEmail')
 
 class UsuariosController {
     async criar(req, res) {
@@ -15,6 +18,9 @@ class UsuariosController {
                 !dados.password_hash) {
                 return res.status(400).json({ message: 'Todos os campos devem ser preenchidos!' })
             }
+            if (!validarEmail(dados.email)) {
+                return res.status(400).json({ message: 'Email inválido!' })
+            }
             const novoUsuario = await Usuarios.create(dados)
             return res.status(201).json({
                 id: novoUsuario.id,
@@ -26,6 +32,7 @@ class UsuariosController {
                 data_nascimento: novoUsuario.data_nascimento,
             })
         } catch (error) {
+            console.log(error)
             if (error.parent && error.parent.code === '22P02' && error.parent.message.includes('enum_usuarios_sexo')) {
                 return res.status(400).json({ message: 'Sexo invalido, use "Masculino", "Feminino" ou "Outro"!' })
             }
@@ -36,6 +43,24 @@ class UsuariosController {
                 return res.status(400).json({ message: 'Data de nascimento inválida!' })
             }
             return res.status(500).json({ message: 'Não foi possível criar o usuario' })
+        }
+    }
+
+    async deletar(req, res){
+        try {
+            const usuario_id  = req.usuario.id
+            const locaisUsuario = await Locais.findAll({
+                where: {
+                    usuario_id
+                }
+            })
+            if (locaisUsuario.length > 0) {
+                return res.status(400).json({ message: 'O usuario tem locais cadastrados e não pode ser excluído' })
+            }
+            await Usuarios.destroy({ where: { id: usuario_id } })
+            return res.status(200).json({ message: 'Usuario excluído com sucesso!' })
+        } catch (error) {
+            return res.status(500).json({ message: 'Não foi possível excluir o usuario' })
         }
     }
 

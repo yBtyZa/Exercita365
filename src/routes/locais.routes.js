@@ -7,5 +7,6 @@ locaisRoutes.post('/', LocaisController.criar)
 locaisRoutes.get('/', LocaisController.listar)
 locaisRoutes.get('/:local_id', LocaisController.listarUm)
 locaisRoutes.delete('/:local_id', LocaisController.deletar)
+locaisRoutes.put('/:local_id', LocaisController.editar)
 
 module.exports = locaisRoutes

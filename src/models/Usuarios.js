@@ -33,6 +33,9 @@ const Usuarios = connection.define('usuarios', {
     type: DataTypes.STRING(255),
     allowNull: false
   },
+},
+{
+  paranoid: true
 })
 
 Usuarios.beforeSave((usuario) => {

@@ -195,6 +195,28 @@ class LocaisController {
             return res.status(500).json({ message: 'Não foi possível editar o local' })
         }
     }
+
+    async exibirLinkMaps(req, res){
+        try {
+            const { local_id } = req.params
+            if (isNaN(Number(local_id))) {
+                return res.status(400).json({ message: 'ID inválido!' })
+            }
+            const usuario_id = req.usuario.id
+            const local = await Locais.findOne({
+                where: {
+                    id: local_id,
+                    usuario_id: usuario_id
+                }
+            })
+            if (!local) {
+                return res.status(404).json({ message: 'Acesso negado ou local não encontrado.' })
+            }
+            return res.status(200).json(local.maps_link)
+        } catch (error) {
+            return res.status(500).json({ message: 'Não foi possível exibir o link do Google Maps' })
+        }
+    }
 }
 
 module.exports = new LocaisController()

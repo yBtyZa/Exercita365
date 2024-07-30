@@ -2,6 +2,7 @@ const { Router } = require('express')
 const usuariosRoutes = require('./usuarios.routes')
 const loginRoutes = require('./login.routes')
 const locaisRoutes = require('./locais.routes')
+const permissoesRoutes = require('./permissoes.routes')
 
 const validaTokenJWT = require('../middlewares/validaTokenJWT')
 
@@ -16,6 +17,7 @@ routes.get('/', (req, res) => {
 routes.use('/usuarios', usuariosRoutes)
 routes.use('/login', loginRoutes)
 routes.use('/locais', validaTokenJWT, locaisRoutes)
+routes.use('/permissoes', validaTokenJWT, permissoesRoutes)
 
 
 module.exports = routes

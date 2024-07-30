@@ -1,6 +1,8 @@
 const connection = require('../database/connection')
 const { DataTypes } = require('sequelize')
 const { hashSync } = require('bcryptjs')
+const Permissoes = require('./Permissoes')
+const Usuarios_permissoes = require('./Usuarios_permissoes')
 
 const Usuarios = connection.define('usuarios', {
   nome: {
@@ -36,6 +38,14 @@ const Usuarios = connection.define('usuarios', {
 },
 {
   paranoid: true
+})
+
+Usuarios.belongsToMany(Permissoes, {
+  through: Usuarios_permissoes,
+  foreignKey: 'usuario_id',
+  otherKey: 'permissao_id',
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
 })
 
 Usuarios.beforeSave((usuario) => {

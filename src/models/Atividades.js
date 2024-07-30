@@ -4,7 +4,8 @@ const { DataTypes } = require('sequelize')
 const Atividades = connection.define('atividades', {
     categoria:{
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        unique: true
        },
 },
 {

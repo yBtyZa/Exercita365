@@ -15,7 +15,7 @@ locaisRoutes.post('/', LocaisController.criar
                 $nome: 'Ciclovia Beira-Mar Norte',
                 $descricao: " Uma ciclovia ao longo da Beira-Mar Norte, proporcionando uma vista incrível do mar e da cidade. É uma opção mais plana e tranquila para passeios de bicicleta",
                 $cep: "88015-702",
-                $numero: 0,
+                $numero: "0",
                 $atividades_id: [
                     1,
                     2,
@@ -137,7 +137,23 @@ locaisRoutes.put('/:local_id', LocaisController.editar
     /*
         #swagger.tags = ['Locais']
         #swagger.description = 'Endpoint para editar um local criado pelo usuário logado'
-        #swagger.parameters = [
+        #swagger.parameters['editarLocal'] = [
+            {
+                in: 'body',
+                description: 'Informações novas do local',
+                required: true,
+                schema: {
+                    $nome: "Local 1",
+                    $descricao: "Local 1",
+                    $cep: "12345678",
+                    $numero: "1",
+                    $atividades_id: [
+                        1,
+                        2,
+                        8
+                    ]
+                }
+            },
             {
                 name: 'local_id',
                 in: 'path',

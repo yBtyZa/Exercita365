@@ -23,6 +23,9 @@ class PermissoesController {
     async atribuirPermissoes(req, res) {
         try{
             const { usuario_id, permissao_id } = req.body
+            if (!usuario_id || !permissao_id) {
+                return res.status(400).json({ message: 'Usuario e permissão são obrigatórios!' })
+            }
             const usuario = await Usuarios.findByPk(usuario_id)
             const permissao = await Permissoes.findByPk(permissao_id)
             if(!usuario || !permissao) {

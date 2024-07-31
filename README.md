@@ -253,7 +253,7 @@ O banco de dados utiliza os seguintes relacionamentos:
 - Usuários e Permissões: Muitos usuários podem ter muitas permissões (relacionamento N entre Usuários e Permissões, mediado pela tabela Usuarios_Permissoes).
 - Locais e Atividades: Muitos locais podem estar associados a muitas atividades (relacionamento N entre Locais e Atividades, mediado pela tabela Locais_Atividades).
 
-![image](https://github.com/user-attachments/assets/66cc9148-eaa6-4c50-9cb8-a11cff24e68f)
+![image](https://github.com/user-attachments/assets/0f1a2b02-5f62-4e9e-a48c-7e166e0a8906)
 
 ## Tecnologias
 

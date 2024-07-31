@@ -6,8 +6,8 @@ O Exercita365 é uma plataforma que facilita o gerenciamento de exercícios e lo
 ## Requisitos Para Instalação do Projeto
 
 1. **Node.js**: É a plataforma usada para executar o servidor. Certifique-se de instalar a versão recomendada. (18.x ou superior)
-2. **PostgreSQL**: É o sistema de gerenciamento de banco de dados utilizado. Instale a versão compatível com o projeto. (13.x ou superior)
-
+2. **npm**: O gerenciador de pacotes para Node.js, necessário para instalar as dependências do projeto. Normalmente é instalado junto com o Node.js. (versão recomendada: 8.x ou superior)
+3. **PostgreSQL**: É o sistema de gerenciamento de banco de dados utilizado. Instale a versão compatível com o projeto. (13.x ou superior)
 
 ## Instalação
 
@@ -37,10 +37,13 @@ O Exercita365 é uma plataforma que facilita o gerenciamento de exercícios e lo
   ```
 
 ## Scripts
-  ```bash
-  npm run start:prod
-  ```
-Este comando executa as migrações do banco de dados, insere os dados iniciais (seed), gera a documentação do Swagger e inicia o servidor.
+
+- **`npm run start:prod`**: Este comando executa várias etapas importantes no ambiente de produção:
+  1. **Criação do Banco de Dados**: Executa `npx sequelize-cli db:create` para criar o banco de dados se ele ainda não existir.
+  2. **Migrações do Banco de Dados**: Executa `npx sequelize-cli db:migrate` para aplicar as migrações e estruturar o banco de dados conforme definido nos arquivos de migração.
+  3. **Inserção de Dados Iniciais**: Executa `npx sequelize-cli db:seed:all` para popular o banco de dados com dados iniciais definidos nos arquivos de seed.
+  4. **Geração da Documentação do Swagger**: Executa `node ./autogen.swagger.js` para gerar a documentação da API usando Swagger.
+  5. **Início do Servidor**: Executa `node ./src/index.js` para iniciar o servidor da aplicação.
 
 ## Swagger
 Acesse a rota `/doc` para acessar a interface do Swagger e utilizar as rotas.

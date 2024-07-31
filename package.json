@@ -1,13 +1,28 @@
 {
-  "name": "exercita365---projeto-modulo-2",
+  "name": "API - Exercita365",
   "version": "1.0.0",
-  "description": "",
+  "description": "O Exercita365 é uma plataforma que facilita o gerenciamento de exercícios e locais para atividades físicas serem praticadas. Os usuários podem cadastrar novos locais de exercícios, encontrar pontos próximos, visualizar informações sobre os exercícios em cada ponto e registrar suas próprias contribuições para o sistema.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "node ./src/index.js",
-    "start:prod": "node ./src/index.js"
+    "start:dev": "nodemon ./src/index.js",
+    "start:prod": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node ./autogen.swagger.js && node ./src/index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.12.0",
+    "sequelize": "^6.37.3",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }

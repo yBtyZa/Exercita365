@@ -37,8 +37,10 @@ O Exercita365 é uma plataforma que facilita o gerenciamento de exercícios e lo
   ```
 
 ## Scripts
-
-- **`npm run start:prod`**: Este comando executa várias etapas importantes no ambiente de produção:
+   ```bash
+   npm run start:prod
+   ```
+-  Este comando executa várias etapas importantes no ambiente de produção:
   1. **Criação do Banco de Dados**: Executa `npx sequelize-cli db:create` para criar o banco de dados se ele ainda não existir.
   2. **Migrações do Banco de Dados**: Executa `npx sequelize-cli db:migrate` para aplicar as migrações e estruturar o banco de dados conforme definido nos arquivos de migração.
   3. **Inserção de Dados Iniciais**: Executa `npx sequelize-cli db:seed:all` para popular o banco de dados com dados iniciais definidos nos arquivos de seed.
@@ -136,7 +138,7 @@ Efetue o cadastro de um novo usuário com os parâmetros descritos abaixo e real
   ```
 - **Atualizar Local de Exercício**
   - **URL:** `/locais/{local_id}`
-  - **Método:** `DELETE`
+  - **Método:** `PUT`
   - **Descrição:** Deletar um local cadastrado pelo usuário logado.
   - **Cabeçalho da requisição:**
   ```json
@@ -243,6 +245,16 @@ Efetue o login com esses dados.
   "permissao_id": INTERGER
   }
   ```
+## Banco de Dados
+
+O banco de dados utiliza os seguintes relacionamentos:
+
+- Usuários e Locais: Um usuário pode estar associado a muitos locais (relacionamento 1 entre Usuários e Locais).
+- Usuários e Permissões: Muitos usuários podem ter muitas permissões (relacionamento N entre Usuários e Permissões, mediado pela tabela Usuarios_Permissoes).
+- Locais e Atividades: Muitos locais podem estar associados a muitas atividades (relacionamento N entre Locais e Atividades, mediado pela tabela Locais_Atividades).
+
+![image](https://github.com/user-attachments/assets/8d765a6f-2bcd-4a6d-a7f7-4700d8bdf812)
+
 ## Tecnologias
 
 <div align="left">
